@@ -1,90 +1,116 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Dimensions } from 'react-native';
 import SettingItem from './SettingItem';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import { themes } from '../../../constants/theme'
 
 import Img from '../../../../assets/img/logo.jpg'
 
 const index = (props) => {
     const ListSetting =[
         {
+            "id":1,
             "title": "Account"
         },
         {
+            "id":2,
             "title": "Subcription",
             "sub": "Free Pluralsight IQ(Limited Libary)"
         },
         {
+            "id":3,
             "title": "Communication Preferences",
         },
         {
+            "id":4,
             "title": "Default caption language",
             "sub": "English"
         },
         {
-            "title": "Require Wifi fow streaming",
+            "id":5,
+            "title": "Lightnight",
             "radioButton": true
         },
         {
+            "id":6,
             "title": "Require Wifi fow download",
             "radioButton": true
         },
         {
+            "id":7,
             "title": "Recommended content push notifications",
             "sub": "Receive notification about content",
             "radioButton": true
         },
         {
+            "id":8,
             "title": "Show quiz at the end of video",
             "radioButton": true
         },
         {
+            "id":9,
             "title": "Download location",
             "sub": "Default location (4,26 GB of 23.49)",
         },
         {
+            "id":10,
             "title": "Captions",
         },
         {
+            "id":11,
             "title": "Notifications",
         },
         {
+            "id":12,
             "title": "Advanced Options",
         },
         {
+            "id":13,
             "title": "App version",
             "sub": "2.31.2"
         },
     ];
 
-    const renderListItem = (courses) => {
-        return courses.map((item,index) => <SettingItem key={index} item={item}/>)
+
+
+    const renderListItem = (Settings) => {
+        return Settings.map(item => <SettingItem key={item.id} item={item} />)
     };
 
-    return (
-        <View style={styles.container}>
+    return <ThemeContext.Consumer>
+        {
+            ({theme, setTheme})=>{
+                return (
+                    <View style={[styles.container, {backgroundColor: theme.colorsecondary}]}>
+            
+                        <ScrollView
+                            contentContainerStyle={styles.scroolView}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <View style={styles.containerAvatar}>
+                                <View style={styles.containerImg}>
+                                    <Image style={styles.img} source={Img} />
+                                    <View style={styles.containerName}>
+                                        <Text style={[styles.txtName, {color:theme.fontcolor}]}>Duc Nguyen</Text>
+                                        <Text style={styles.txtSub}>@admin</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            {renderListItem(ListSetting)}
+                            <TouchableOpacity   style={[styles.btnLogin,{backgroundColor: theme.colorprimary}]}
+                                                onPress={()=>props.navigation.navigate('Signin')
+                            }>
+                                <Text style={[styles.text,{backgroundColor: theme.colorprimary}]}>Sign out</Text>
+                           </TouchableOpacity>
+            
+                        </ScrollView>
+                    </View> 
+                )
+            }
+        }
+    </ThemeContext.Consumer>
 
-            <ScrollView 
-                contentContainerStyle={styles.scroolView}
-                showsVerticalScrollIndicator={false}
-            >
-                <View style={styles.containerAvatar}>
-                    <View style={styles.containerImg}>
-                        <Image style={styles.img} source={Img} />
-                        <View style={styles.containerName}>
-                            <Text style={styles.txtName}>Duc Nguyen</Text>
-                            <Text style={styles.txtSub}>7d4a5v6h8a</Text>
-                        </View>
-                    </View>
-                </View>
-                {renderListItem(ListSetting)}
-                <TouchableOpacity style={styles.btnLogin}
-               onPress={()=>props.navigation.navigate('Signin')}>
-                    <Text style={styles.text}>Sign out</Text>
-               </TouchableOpacity>
-
-            </ScrollView>
-        </View> 
-    )
+    
 }
 
 export default index;
@@ -92,9 +118,9 @@ export default index;
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        marginLeft:20,
-        marginTop:20,
-        marginRight:20
+        paddingLeft:20,
+        paddingTop:20,
+        paddingRight:20
     },
     containerAvatar:{
         flex:0.2
@@ -123,7 +149,8 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         marginTop: 20,
-        marginLeft:10
+        marginLeft:10,
+        marginBottom: 30
     },
     text:{
         color: 'rgba(255,255,255,1)',

@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, ScrollView, Image } from 'react-native'
 import SectionCourseItem from './SectionCourseItem';
-import Data from '../../../../constraint/data';
+// import Data from '../../../../constraint/data';
+import { mocks } from '../../../constants';
 
 export default function SectionCourse(props){
 
     const renderListItem = (courses) => {
-        return courses.map(item => <SectionCourseItem key={item.id} item={item} navigation={props.navigation}/>)
+        // return courses.map(item => <SectionCourseItem key={item.id} item={item} navigation={props.navigation}/>)
+        return courses.map(item => <SectionCourseItem key={item.IDCourse} item={item} navigation={props.navigation}/>)
     };
 
     return (
@@ -19,7 +21,7 @@ export default function SectionCourse(props){
                 contentContainerStyle={styles.scroolView}
                 showsHorizontalScrollIndicator={false}
             >
-                {renderListItem(Data)}
+                {renderListItem(mocks.Courses)}
             </ScrollView>
         </View>  
     )
