@@ -2,17 +2,17 @@ import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Navigation from './src/navigation';
 import { ThemeProvider} from './src/provider/ThemeProvider';
-// import { SkillProvider} from './src/provider/SkillProvider';
-// import {AuthorProvider} from './src/provider/AuthorProvider';
+import { SkillProvider} from './src/provider/SkillProvider';
+import {AuthorProvider} from './src/provider/AuthorProvider';
 
 const App = () => {
   return ( 
   <ThemeProvider>
-    {/* <SkillProvider>
-      <AuthorProvider> */}
+    <SkillProvider>
+      <AuthorProvider>
         <Navigation style={styles.navigation} />
-      {/* </AuthorProvider>
-    </SkillProvider> */}
+      </AuthorProvider>
+    </SkillProvider>
   </ThemeProvider>
 )};
 
