@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Dimensions } from 'react-native';
 import SettingItem from './SettingItem';
+import { logout } from '../../../services/authenticationService';
 
 import Img from '../../../../assets/img/logo.jpg'
 
@@ -56,6 +57,9 @@ const index = (props) => {
         },
     ];
 
+    //Kiểm tra data
+    const [status, setStatus] = useState(null);
+    
     const renderListItem = (courses) => {
         return courses.map((item,index) => <SettingItem key={index} item={item}/>)
     };
@@ -78,7 +82,12 @@ const index = (props) => {
                 </View>
                 {renderListItem(ListSetting)}
                 <TouchableOpacity style={styles.btnLogin}
-               onPress={()=>props.navigation.navigate('Signin')}>
+               onPress={()=>
+                {
+                    setStatus(logout())
+                    props.navigation.navigate('Signin')
+                }}>
+
                     <Text style={styles.text}>Sign out</Text>
                </TouchableOpacity>
 
