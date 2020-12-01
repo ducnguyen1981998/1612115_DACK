@@ -6,7 +6,7 @@ const PopularSkillsItem = (props) => {
     return (
         <TouchableOpacity onPress={()=>props.navigation.navigate('Course')}>
             <View style= {styles.container}>
-                <Text style={styles.txt}>{props.skill.lang}</Text>
+                <Text style={styles.txt}>{props.skill.SkillName}</Text>
             </View>
         </TouchableOpacity>
     )

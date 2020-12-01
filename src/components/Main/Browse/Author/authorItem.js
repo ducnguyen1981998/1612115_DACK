@@ -6,7 +6,7 @@ const AuthorItem = (props) => {
         <TouchableOpacity onPress={()=> {props.navigation.navigate("Course")}}>
             <View style={styles. container}>
                 <Image style={styles.img} source={require('../../../../../assets/img/person.jpg') }/>
-                <Text style= {styles.txt}>{props.author.name}</Text>
+                <Text style= {styles.txt}>{props.AuthorName}</Text>
             </View>
         </TouchableOpacity>
     )

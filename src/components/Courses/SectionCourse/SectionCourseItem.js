@@ -8,7 +8,7 @@ export default function SectionCourseItem(props) {
         <View style={styles.container}>
             <Image style={styles.img} source={props.item.img}/>
             <View style={styles.containerTxt}>
-                <Text style={styles.txtTitle}>{props.item.title}</Text>
+                <Text style={styles.txtTitle}>{props.item.coursename}</Text>
                 <Text style={styles.txtAuthor}>{props.item.author}</Text>
                 <View style={styles.info}>
                     <Text style={{fontSize:12}}>{props.item.level}</Text>
@@ -24,7 +24,7 @@ export default function SectionCourseItem(props) {
                         style={ styles.ratingStar}
                         ratingBackgroundColor= 'rgba(0,0,0,0)'
                     />
-                    <Text> ({props.item.num})</Text>
+                    <Text> ({props.item.numberofstar})</Text>
                 </View>
             </View>
         </View>
