@@ -4,13 +4,16 @@ import Navigation from './src/navigation';
 import { ThemeProvider} from './src/provider/ThemeProvider';
 import { SkillProvider} from './src/provider/SkillProvider';
 import {AuthorProvider} from './src/provider/AuthorProvider';
+import {AuthenticationProvider} from './src/provider/AuthenticationProvider';
 
 const App = () => {
   return ( 
   <ThemeProvider>
     <SkillProvider>
       <AuthorProvider>
-        <Navigation style={styles.navigation} />
+      <AuthenticationProvider>
+          <Navigation style={styles.navigation} />
+      </AuthenticationProvider>
       </AuthorProvider>
     </SkillProvider>
   </ThemeProvider>

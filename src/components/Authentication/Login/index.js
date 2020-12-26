@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, StyleSheet, View, ImageBackground, Image, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Background from "../../../../assets/img/bg.jpg";
@@ -7,6 +7,7 @@ import { TextInput} from 'react-native-gesture-handler';
 import { login } from '../../../services/authenticationService';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { themes } from '../../../constants/theme';
+import { AuthenticationContext } from '../../../provider/AuthenticationProvider';
 
 const {width: Width}= Dimensions.get("window");
 
@@ -19,26 +20,25 @@ const index = (props) => {
     const [showPass, setShowPass] = useState(true);
 
     //Kiểm tra data
-    const [status, setStatus] = useState(null);
-
+    //const [status, setStatus] = useState(null);
+    const authContext = useContext(AuthenticationContext);
 
     useEffect( () =>{
-        if(status && status.status === 200){
+        console.log("authContext: ",authContext)
+        if(authContext.state.isAuthenticated){
             props.navigation.navigate('Home'); 
         }
-    });
+    }, [authContext.state]);
 
     const updateEye = () => {
         setShowPass(!showPass);
     }
 
-    const renderLoginStatus = (status) =>{
-        if(!status){
+    const renderLoginStatus = (state) =>{
+        if(state.isAuthenticated){
             return <View/>
-        } else if(status.status === 200){
-
-        } else{
-            return (<Text style={styles.detailError}>{status.errorString}</Text>)
+        }else{
+            return (<Text style={styles.detailError}>{state.message}</Text>)
         }
     }
 
@@ -90,10 +90,10 @@ const index = (props) => {
                             />
                             </TouchableOpacity>
                         </View>
-                        {renderLoginStatus(status)}
+                        {renderLoginStatus(authContext.state)}
                         <TouchableOpacity style={[styles.btnRegister, {backgroundColor: theme.colorprimary}]}
                         onPress={()=> {
-                            setStatus(login(username,password))  
+                            authContext.login(username, password)  
                         }}
                         >
                             <Text style={[styles.text, {color: theme.fontcolor}]}>Sign in</Text>
