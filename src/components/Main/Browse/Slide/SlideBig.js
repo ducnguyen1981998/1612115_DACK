@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground,Dimensions  } from 'react-native';
 import { Tile } from 'react-native-elements';
-
+import { CourseContext } from "../../../../provider/Courses/CourseProvider";
 
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
+
 const SlideItemBig = (props) => {
     const { slide } = props;
+    const coursesContext = useContext(CourseContext);
+    //const { clickToCourse, setClickToCourse } = useState(false);
+
+    useEffect( () =>{
+        //console.log("CourseContext isDone: ", coursesContext.state.isDone )
+        if(coursesContext.state.isDone){
+            props.navigation.navigate('Course'); 
+        }
+    }, [coursesContext.state.isDone]);
+
     return (
         <View>
         <Tile
@@ -19,7 +30,9 @@ const SlideItemBig = (props) => {
         containerStyle={{alignSelf:'center', marginTop: 20}}
         titleStyle={{textTransform:'uppercase'}}
         activeOpacity={0.6}
-        onPress={()=> {props.navigation.navigate("Course")}}
+        onPress={()=> {
+            coursesContext.course("top-rate")
+        }}
         featured
         />
         <Tile
@@ -30,7 +43,9 @@ const SlideItemBig = (props) => {
         containerStyle={{alignSelf:'center', marginTop: 10}}
         titleStyle={{textTransform:'uppercase'}}
         activeOpacity={0.6}
-        onPress={()=> {props.navigation.navigate("Course")}}
+        onPress={()=> {
+            coursesContext.course("top-new")
+        }}
         featured
         />
         </View>

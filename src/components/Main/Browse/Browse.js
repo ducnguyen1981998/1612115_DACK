@@ -6,12 +6,12 @@ import SlideBig from './Slide/SlideBig';
 import Author from './Author/author';
 import Background from "../../../../assets/img/bg.jpg";
 
+
 const Browse = (props) => {
     return (
         <ImageBackground source={Background} style={styles.backgroundContainer}>
             <ScrollView>
                 <SlideBig title={'Recommend for you'} navigation={props.navigation}/>
-                <Slide/>
                 <PopularSkill title={'PopularSkill'} navigation={props.navigation}/>
                 <Author title={"Author"} navigation={props.navigation}/>
             </ScrollView>

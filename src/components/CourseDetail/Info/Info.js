@@ -4,27 +4,25 @@ import {Rating} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Info = () => {
+import moment from 'moment'
+
+const Info = (props) => {
     const [isShowingAllText, setIsShowingAllText] = useState(false);
     return (
         <View style={styles.container}>
-            <Text style={ styles.txtTitle}>Angular: Getting Started</Text>
+            <Text style={ styles.txtTitle}>{props.data.title}</Text>
             <View style={styles.containerListAuthor}>
                 <View style={styles.containerAuthor}>
                     <Image style={styles.imgAuthor} source={require('../../../../assets/img/person.jpg')}/>
-                    <Text style={styles.txtAuthor}>Deboral Kurata</Text>
-                </View>
-                <View style={styles.containerAuthor}>
-                    <Image style={styles.imgAuthor} source={require('../../../../assets/img/person.jpg')}/>
-                    <Text style={styles.txtAuthor}>Deboral Kurata</Text>
-                </View>               
+                    <Text style={styles.txtAuthor}>{props.data.instructorName|| props.data["instructor.user.name"]}</Text>
+                </View>             
             </View>
             <View style={styles.info}>
-                <Text>Beginner</Text>
+                <Text>{props.data.status}</Text>
                 <Text> ♦ </Text>
-                <Text>4 21 2020</Text>
+                <Text>{moment(props.data.updatedAt).format("YYYY-MM-DD")}</Text>
                 <Text> ♦ </Text>
-                <Text>5,9h</Text>
+                <Text>{props.data.totalHours}h</Text>
                 <Text> ♦ </Text>
                 <Rating
                         type='custom'
@@ -32,8 +30,9 @@ const Info = () => {
                         // onFinishRating={this.ratingCompleted}
                         style={ styles.ratingStar}
                         ratingBackgroundColor= 'lightgray'
+                        startingValue={props.data.averagePoint}
                     />
-                <Text> (768)</Text>
+                <Text>({props.data.ratedNumber})</Text>
             </View>
             {/* Bookmark Add To Channel Download */}
             <View style={styles.bttContainer}>
@@ -57,12 +56,7 @@ const Info = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.column}>
-                <Text style={styles.txtInfo} numberOfLines={isShowingAllText? undefined:3} >Angular has become one of most 
-                widely used web development frameworks. This course, Angular Fundamentals, will teach you 
-                Achieve the maximum speed possible on the Web Platform today, and take it further, via Web 
-                Workers and server-side rendering.
-                Angular puts you in control over scalability. Meet huge data requirements by building data 
-                models on RxJS, Immutable.js or another push-model.</Text>
+                <Text style={styles.txtInfo} numberOfLines={isShowingAllText? undefined:3} >{props.data.description}</Text>
                 <Button style={styles.bttMoreInfo} color={"#432577"} title={">"} onPress={()=> { setIsShowingAllText(!isShowingAllText)}}></Button>
             </View>
             <View style={styles.containerBtt}>
