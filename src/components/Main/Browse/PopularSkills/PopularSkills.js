@@ -1,63 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text , StyleSheet, ScrollView } from 'react-native';
-import PopurlarSkillItem from './PopularSkillsItem'
-import { mocks} from '../../../../constants';
+import PopurlarSkillItem from './PopularSkillsItem';
+import { mocks } from '../../../../constants';
+import { SkillContext } from '../../../../provider/SkillProvider';
+
 
 const PopularSkills = (props) => {
-    // const skills=[
-    //     {
-    //         id: 1,
-    //         lang: 'Angular'
-    //     },
-    //     {
-    //         id: 2,
-    //         lang: 'JavaScript'
-    //     },
-    //     {
-    //         id: 3,
-    //         lang: 'C#'
-    //     },
-    //     {
-    //         id: 4,
-    //         lang: 'Java'
-    //     },
-    //     {
-    //         id: 5,
-    //         lang: 'Data Analysis'
-    //     },
-    //     {
-    //         id: 6,
-    //         lang: 'ASP.NET'
-    //     },
-    //     {
-    //         id: 7,
-    //         lang: 'Node'
-    //     },
-    //     {
-    //         id: 8,
-    //         lang: 'Design Patterns'
-    //     },
-    //     {
-    //         id: 9,
-    //         lang: 'Python'
-    //     },
-    //     {
-    //         id: 10,
-    //         lang: 'Next'
-    //     },
-    //     {
-    //         id: 11,
-    //         lang: 'SQL Server'
-    //     },
-    //     {
-    //         id: 12,
-    //         lang: 'Database Administraion'
-    //     },
-    //     {
-    //         id: 13,
-    //         lang: 'Part Modeling'
-    //     },
-    // ];
+
+    const skillContext = useContext(SkillContext);
+    console.log("skillContext: ", skillContext);
 
     const renderListItem = (skills) => {
         return skills.map( skill => <PopurlarSkillItem key={skill.id} skill={skill} navigation={props.navigation}/>)
@@ -73,7 +24,7 @@ const PopularSkills = (props) => {
                 contentContainerStyle={styles.scroolView}
                 showsHorizontalScrollIndicator={false}
             >
-                {renderListItem(mocks.PolularSkills)}
+                {renderListItem(skillContext.state.category)}
             </ScrollView>
         </View>
     )

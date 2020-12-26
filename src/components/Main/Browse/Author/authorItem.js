@@ -1,15 +1,26 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import { AuthorProvider, AuthorContext} from '../../../../provider/AuthorProvider';
 
 const AuthorItem = (props) => {
-    return (
-        <TouchableOpacity onPress={()=> {props.navigation.navigate("Course")}}>
-            <View style={styles. container}>
-                <Image style={styles.img} source={require('../../../../../assets/img/person.jpg') }/>
-                <Text style= {styles.txt}>{props.AuthorName}</Text>
-            </View>
-        </TouchableOpacity>
-    )
+    
+    return <AuthorContext.Consumer>
+        {
+            ({setIdSelected}) => {
+                return (
+                    <TouchableOpacity onPress={()=> {
+                        props.navigation.navigate("Course", { IDAuthor: props.author.id}),
+                        setIdSelected(props.author.id)
+                    }}>
+                        <View style={styles.container}>
+                            <Image style={styles.img} source={{ uri: props.author["user.avatar"] }}/>
+                            <Text style= {styles.txt}>{props.author["user.name"]}</Text>
+                        </View>
+                    </TouchableOpacity>
+                )            
+            }
+        }
+    </AuthorContext.Consumer>
 };
 
 const styles= StyleSheet.create({

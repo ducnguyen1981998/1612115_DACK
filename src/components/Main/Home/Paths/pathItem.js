@@ -2,6 +2,8 @@ import React, { Component, useState } from 'react';
 import { Text, StyleSheet, View, Dimensions,Image, TouchableOpacity, TouchableWithoutFeedback, ImageBackground } from 'react-native';
 import {Rating, Overlay, Button} from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { ThemeContext } from '../../../../provider/ThemeProvider';
+import { themes } from '../../../../constants/theme';
 
 
 const Width = Dimensions.get('window').width;
@@ -13,11 +15,11 @@ export default function pathItem(props) {
     return (
         <TouchableOpacity onPress={()=> props.navigation.navigate("Course")}>
             <View style={styles.container}>
-                <Image style={styles.img} source={props.item.path}>  
+                <Image style={styles.img} source={props.item.img}>  
                 </Image>
                 <View style={styles.containerTxt}>
-                    <Text style={styles.txtTitle}>{props.item.pathName}</Text>
-                    <Text style={styles.txtAuthor}>{props.item.numCourses} courses</Text> 
+                    <Text style={styles.txtTitle}>{props.item.pathname}</Text>
+                    <Text style={styles.txtAuthor}>{props.item.pathnum} courses</Text> 
                 </View>
             </View>
         </TouchableOpacity>

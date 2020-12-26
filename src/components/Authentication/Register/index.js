@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import Background from "../../../../assets/img/bg.jpg";
 import Logo from '../../../../assets/img/logo.png';
 import { TextInput} from 'react-native-gesture-handler';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import { themes } from '../../../constants/theme';
 
 const {width: Width}= Dimensions.get("window");
 
@@ -24,72 +26,87 @@ export default class index extends Component {
     }
 
     render() {
-        return (
-           <ImageBackground source={Background} style={styles.backgroundContainer}>
-               <View style={styles.logoContainer}>
-                    <Image source={Logo} style={styles.logo}/>
-               </View>
-               <View style={styles.inputContainer}>
-                   <Icon 
-                        name={'ios-person'} 
-                        size={28} 
-                        color={'rgba(255,255,255,0.7)'}
-                        style={styles.inputIcon}
-                   />
-                   <TextInput
-                        style={styles.input}
-                        placeholder={"Username"}
-                        placeholderTextColor={'rgba(255,255,255,0.7)'}
-                        underlineColorAndroid='transparent'
-                   />
-               </View>
-               <View style={styles.inputContainer}>
-                   <Icon 
-                        name={'ios-lock'} 
-                        size={26} 
-                        color={'rgba(255,255,255,0.7)'}
-                        style={styles.inputIcon}
-                   />
-                   <TextInput
-                        style={styles.input}
-                        placeholder={"Password"}
-                        secureTextEntry={this.state.showPass}
-                        placeholderTextColor={'rgba(255,255,255,0.7)'}
-                        underlineColorAndroid='transparent'
-                   />
-               </View>
-               <View style={styles.inputContainer}>
-                   <Icon 
-                        name={'ios-lock'} 
-                        size={26} 
-                        color={'rgba(255,255,255,0.7)'}
-                        style={styles.inputIcon}
-                   />
-                   <TextInput
-                        style={styles.input}
-                        placeholder={"Verify Password"}
-                        secureTextEntry={this.state.showPass}
-                        placeholderTextColor={'rgba(255,255,255,0.7)'}
-                        underlineColorAndroid='transparent'
-                   />
-               </View>
-               <TouchableOpacity style={styles.btnLogin}
-               onPress={()=>this.props.navigation.navigate('Signin')}>
-                    <Text style={styles.text}>Sign up</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.btnRegister} 
-                onPress={()=>this.props.navigation.navigate('Signin')}>
-                    <Text style={styles.text}>Sign in</Text>
-               </TouchableOpacity>
-               {/* <TouchableOpacity style={styles.btnForgotPassword}>
-                    <Text style={styles.textForgot}>Forgot Password?</Text>
-               </TouchableOpacity> */}
-           </ImageBackground>
-        )
+        return <ThemeContext.Consumer>
+            {
+                ({theme,setTheme})=>{
+                    //setTheme(themes.dark)
+                    return (
+                        <ImageBackground source={Background} style={styles.backgroundContainer}>
+                            <View style={styles.logoContainer}>
+                                 <Image source={Logo} style={styles.logo}/>
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <Icon 
+                                     name={'ios-person'} 
+                                     size={28} 
+                                     color={theme.fontcolor}
+                                     style={styles.inputIcon}
+                                />
+                                <TextInput
+                                     style={[styles.input, theme === themes.light ? styles.light:styles.dark]}
+                                     placeholder={"Username"}
+                                     placeholderTextColor={theme.fontcolor}
+                                     underlineColorAndroid='transparent'
+                                />
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <Icon 
+                                     name={'ios-lock'} 
+                                     size={26} 
+                                     color={theme.fontcolor}
+                                     style={styles.inputIcon}
+                                />
+                                <TextInput
+                                     style={[styles.input, theme === themes.light ? styles.light:styles.dark]}
+                                     placeholder={"Password"}
+                                     secureTextEntry={this.state.showPass}
+                                     placeholderTextColor={theme.fontcolor}
+                                     underlineColorAndroid='transparent'
+                                />
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <Icon 
+                                     name={'ios-lock'} 
+                                     size={26} 
+                                     color={theme.fontcolor}
+                                     style={styles.inputIcon}
+                                />
+                                <TextInput
+                                     style={[styles.input, theme === themes.light ? styles.light:styles.dark]}
+                                     placeholder={"Verify Password"}
+                                     secureTextEntry={this.state.showPass}
+                                     placeholderTextColor={theme.fontcolor}
+                                     underlineColorAndroid='transparent'
+                                />
+                            </View>
+                            <TouchableOpacity style={[styles.btnLogin, {backgroundColor: theme.colorprimary}]}
+                            onPress={()=>this.props.navigation.navigate('Signin')}>
+                                 <Text style={styles.text}>Sign up</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[styles.btnRegister, {backgroundColor: theme.colorprimary}]} 
+                             onPress={()=>this.props.navigation.navigate('Signin')}>
+                                 <Text style={styles.text}>Sign in</Text>
+                            </TouchableOpacity>
+                        </ImageBackground>
+                    )
+                }
+            }
+        </ThemeContext.Consumer>
+        
     }
 }
 
 const styles = StyleSheet.create({
+    light:{
+        backgroundColor: themes.light.colorsecondary,
+        opacity: 0.7,
+        color: themes.light.fontcolor
+    },
+    dark:{
+        backgroundColor: themes.dark.colorsecondary,
+        opacity: 0.7,
+        color: themes.dark.fontcolor
+    },
     backgroundContainer:{
         flex:1,
         height:null,
@@ -140,7 +157,6 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     text:{
-        color: 'rgba(255,255,255,0.7)',
         fontSize: 16,
         textAlign: 'center',
         textTransform:'uppercase',

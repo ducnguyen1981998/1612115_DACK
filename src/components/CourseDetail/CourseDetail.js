@@ -6,13 +6,14 @@ import Info from './Info/Info';
 import ListLesson from './ListLesson/ListLesson';
 import VideoPlayer from './VideoPlayer/VideoPlayer'
 
-const Browse = () => {
+const Browse = (props) => {
+    // console.log("Props: ", props.route.params);
     return (
         <ImageBackground source={Background} style={styles.backgroundContainer}>
             <ScrollView>
-                <VideoPlayer/>
-                <Info/>
-                <ListLesson/>
+                <VideoPlayer data = {props.route.params.data}/>
+                <Info data = {props.route.params.data}/>
+                <ListLesson data = {props.route.params.data}/>
             </ScrollView>
         </ImageBackground>
     )

@@ -1,49 +1,33 @@
 import React from 'react'
-import { View, Text, StyleSheet,ScrollView } from 'react-native';
+import { View, Text, StyleSheet,ScrollView, ActivityIndicator } from 'react-native';
 import AuthorItem from './authorItem';
-import {mocks} from '../../../../constants'
+//import {mocks} from '../../../../constants';
+import { AuthorProvider, AuthorContext} from '../../../../provider/AuthorProvider'
 
 const Author = (props) => {
-    // const authors=[
-    //     {
-    //         id: 1,
-    //         name: "Huy Nguyen",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Hai Pham"
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "Duc Nguyen"
-    //     },
-    //     {
-    //         id: 4,
-    //         name: "Dat Nguyen",
-    //     },
-    //     {
-    //         id: 5,
-    //         name: "Khoa Pham"
-    //     },
-    //     {
-    //         id: 6,
-    //         name: "Kien Bui"
-    //     }
-    // ];
 
     const renderListItem = (authors) =>{
-        return authors.map( author=> <AuthorItem key={author.IDAuthor} author={author} navigation={props.navigation}/>)
+        return authors.map( author=> <AuthorItem key={author.id} author={author} navigation={props.navigation}/>)
     }
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.txt}>{props.title}</Text>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                {renderListItem(mocks.Authors)}
-            </ScrollView>
-        </View>
-        
-    )
+    return <AuthorContext.Consumer>
+        {
+            ({author, isLoading}) => {
+                return (
+                    <View style={styles.container}>
+                        { isLoading && <ActivityIndicator size="large" color="red"/>}
+                        <Text style={styles.txt}>{props.title}</Text>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                            {renderListItem(author)}
+                        </ScrollView>
+                    </View>
+                    
+                )
+            }
+        }
+    </AuthorContext.Consumer>
+
+   
 };
 
 const styles= StyleSheet.create({
@@ -55,7 +39,8 @@ const styles= StyleSheet.create({
     txt:{
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 10,
+        opacity: 0.7
     },
     
 });

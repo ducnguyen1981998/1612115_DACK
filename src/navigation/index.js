@@ -17,7 +17,9 @@ import Signup from '../components/Authentication/Register';
 import ForgotPassword from '../components/Authentication/ForgetPassword';
 import Setting from '../components/Account Management/Setting';
 import Profile from '../components/Account Management/Profile';
-import Map from '../components/Map'
+import Map from '../components/Map';
+import SkillDetail from '../components/SkillDetail/SkillDetail';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,6 +50,7 @@ function getHeaderTitle(route) {
 function HomeTab({navigation}) {
     return (
       <Tab.Navigator
+        initialRouteName={"Home"}
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
@@ -85,7 +88,7 @@ const App = () => {
   return (
     //Navigaton
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={"Signin"} >
+      <Stack.Navigator initialRouteName={"Home"} >
         <Stack.Screen
           name="Home"
           component={HomeTab}
@@ -96,21 +99,22 @@ const App = () => {
             <View style={styles.containericon}>
                 <Icon 
                   name={"ios-person"} 
-                  size={32}
+                  size={28}
+                  color={"#000"}
                   style={styles.icon} 
                   color={"rgba(0,0,0,0.3)"} 
                   onPress={ () => { navigation.navigate('Profile')}}
                   />
                 <Icon 
                   name={"ios-settings"} 
-                  size={32}
+                  size={28}
                   style={styles.icon} 
                   color={"rgba(0,0,0,0.3)"} 
                   onPress={ () => { navigation.navigate('Setting')}}
                   /> 
             </View>   
             ),
-            
+
           })}
         />
         <Stack.Screen
@@ -119,9 +123,9 @@ const App = () => {
           options={{
             title: 'Search',
             headerStyle: {
-              backgroundColor: '#000',
+              backgroundColor: '#fff',
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#000',
             headerTitleStyle: {
               fontWeight: 'bold',
             },
@@ -133,9 +137,9 @@ const App = () => {
           options={{
             title: 'Courses',
             headerStyle: {
-              backgroundColor: '#000',
+              backgroundColor: '#fff',
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#000',
             headerTitleStyle: {
               fontWeight: 'bold',
             },
@@ -147,6 +151,17 @@ const App = () => {
           options={{
             headerShown:false
           }}
+        />
+
+        <Stack.Screen
+          name="SkillDetail"
+          component={SkillDetail}
+          options={({route}) => (
+            console.log(route),
+            {
+            // title: route.params.navigation,
+            headerTitle:route.params.navigation,
+          })}
         />
         <Stack.Screen
           name="Signin"
@@ -173,7 +188,7 @@ const App = () => {
           name="Setting"
           component={Setting}
           options={{
-            headerShown:false
+            headerShown:true
           }}
         />
         <Stack.Screen

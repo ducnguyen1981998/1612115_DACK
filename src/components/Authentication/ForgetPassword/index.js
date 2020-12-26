@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, ImageBackground, Image, Dimensions, TouchableOpacity, TextInput } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import { themes } from '../../../constants/theme';
 
 import Background from "../../../../assets/img/bg.jpg";
 import Logo from '../../../../assets/img/logo.png';
@@ -17,24 +19,31 @@ export default class index extends Component {
     };
 
     render() {
-        return (
-           <ImageBackground source={Background} style={styles.backgroundContainer}>
-               <View style={styles.form}>
-                    <Text style={styles.txtHeader}> Forgot your password?</Text>
-                    <Text style={styles.txtSub}> Enter your email to find your account.</Text>
-                    <Text style={styles.txtLabel}>Email adress</Text>
-                    <TextInput
-                        style={styles.txtInpEmail}
-                        placeholderTextColor={'rgba(255,255,255,0.7)'}
-                        underlineColorAndroid='transparent'
-                    />
-                    <TouchableOpacity style={styles.btt}
-                    onPress={()=> {this.props.navigation.navigate("Signin")}}>
-                        <Icon name='ios-arrow-forward' size={25} textAlign="center" color="#fff" style={styles.icon}/>
-                    </TouchableOpacity>
-               </View>
-           </ImageBackground>
-        )
+        return <ThemeContext.Consumer>
+        {
+            ({theme,setTheme})=>{
+                //setTheme(themes.dark)
+                return (
+                    <ImageBackground source={Background} style={styles.backgroundContainer}>
+                        <View style={styles.form}>
+                             <Text style={[styles.txtHeader, {color: theme.fontcolor1}]}> Forgot your password?</Text>
+                             <Text style={[styles.txtSub, {color: theme.fontcolor1}]}> Enter your email to find your account.</Text>
+                             <Text style={[styles.txtLabel, {color: theme.fontcolor1}]}>Email adress</Text>
+                             <TextInput
+                                 style={[styles.txtInpEmail,{borderBottomColor: theme.fontcolor1}]}
+                                 placeholderTextColor={theme.fontcolor}
+                                 underlineColorAndroid='transparent'
+                             />
+                             <TouchableOpacity style={styles.btt}
+                             onPress={()=> {this.props.navigation.navigate("Signin")}}>
+                                 <Icon name='ios-arrow-forward' size={25} textAlign="center" color={theme.fontcolor1} style={[styles.icon, {backgroundColor: theme.colorprimary}]}/>
+                             </TouchableOpacity>
+                        </View>
+                    </ImageBackground>
+                )
+            }
+        }
+        </ThemeContext.Consumer>
     }
 }
 
@@ -55,25 +64,20 @@ const styles = StyleSheet.create({
     },
     txtHeader:{
         fontSize: 28,
-        color: '#fff',
         fontWeight:'300'
     },
     txtSub:{
         fontSize: 16,
-        color: '#fff',
         marginTop:10,
         marginBottom:60
     },
     txtLabel:{
         fontSize: 14,
-        color: '#fff',
         marginTop:10,
         textTransform: "uppercase"
     },
     txtInpEmail:{
         borderBottomWidth:1,
-        borderBottomColor:'#fff',
-        color: "#fff"
     },
     btt:{
         alignItems:'flex-end',
@@ -83,12 +87,12 @@ const styles = StyleSheet.create({
 
     },
     icon:{
-        backgroundColor:'rgba(255,255,255,0.7)',
         textAlign:'center',
         paddingTop:10,
         height: 50,
         width:50,
-        borderRadius: 25
+        borderRadius: 25,
+        opacity:0.7
     }
 
 });

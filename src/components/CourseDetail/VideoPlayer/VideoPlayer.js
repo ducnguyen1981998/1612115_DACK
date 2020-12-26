@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, View, Dimensions, Animated } from 'react-native';
 import {Video} from 'expo-av';
 import LightVideo from '../../../../assets/video/1612115_Assigment2.mp4';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 
 

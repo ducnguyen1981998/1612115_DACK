@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useContext} from 'react'
 import { StyleSheet, Text, View, Image, Alert, Button, TextInput } from 'react-native';
 import Person from '../../../../assets/img/person1.jpg'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,13 +8,16 @@ import Day from '../../../../assets/icon/Day.jpg';
 import Time from '../../../../assets/icon/time.jpg';
 import MostViewed from '../../../../assets/icon/mostviewed.jpg';
 
+import { AuthenticationContext } from '../../../provider/AuthenticationProvider';
+
 const index = (props) => {
+    const authenticationContext = useContext(AuthenticationContext);
     return (
         <View style={ styles.container}>
             <View style={ styles.containerAvatar}>
-                <Image source={Person} style={styles.imgProfile}/>
-                <Text style={styles.txtName}>Nguyen Van Duc</Text>
-                <Text style={styles.txtJob}>@ducnguyen</Text>
+                <Image source={{uri: authenticationContext.state.userInfo["avatar"]}} style={styles.imgProfile}/>
+                <Text style={styles.txtName}>{authenticationContext.state.userInfo["name"]}</Text>
+                <Text style={styles.txtJob}>{authenticationContext.state.userInfo["email"]}</Text>
             </View>
             <View style={styles.container1}>
                 <View style={styles.containerInfo}>
@@ -67,7 +70,8 @@ const styles = StyleSheet.create({
     },
     imgProfile:{
         height:120,
-        width:120
+        width:120,
+        borderRadius: 60
     },
     txtName:{
         // color: "white",

@@ -1,4 +1,4 @@
-const login = (username, password) => {
+export const login = (username, password) => {
     if(!username || !password){
         return { status: 404, errorString: 'Vui lòng thêm tài khoản hay mật khẩu'}
     }
@@ -11,9 +11,3 @@ const login = (username, password) => {
     }
     return { status: 404, errorString: 'Tài khoản hoặc mật khẩu không đúng'}
 };
-
-const logout = () => {
-    return { status: 100};
-};
-
-export { login, logout};
